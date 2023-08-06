@@ -1,6 +1,6 @@
 import random
 
-rand_number = random.randint(0, 2)
+rand_number = random.randint(0, 5)
 guesses = 0
 
 while True:
@@ -20,7 +20,9 @@ while True:
     if number == rand_number:
         print('Correct!')
         break
+    elif number > rand_number:
+        print('Your guess was higher than the number')
     else:
-        print('Wrong!')
+        print('Your guess was below than the number')
 
 print(f'You got it right in {guesses} guesses')
