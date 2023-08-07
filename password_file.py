@@ -1,4 +1,11 @@
-password = input('What is your password?: ')
+file_password = input('What is your file password?: ')
+
+def view():
+  pass
+
+def add():
+  name = input('What is your account name?: ')
+  password = input('What is your password?: ')
 
 while True:
 		mode = input('Do you want to add or view password? Type add/view: \n\nPress q to quit.\nEnter: ')
@@ -7,9 +14,9 @@ while True:
 			break
 
 		if mode.lower() == 'add':
-			pass
+			add()
 		elif mode == 'view':
-			pass
+			view()
 		else:
 			print('Invalid')
 			continue
