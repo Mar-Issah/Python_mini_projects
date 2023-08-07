@@ -16,36 +16,37 @@ def get_key():
 
 # Just the key would have worked just making it stronger by adding file_password
 file_password = input('What is your file password?: ')
-key = get_key() + file_password.bytes
-print(key)
+key = get_key() + file_password.encode('utf-8')
+fernet_key = Fernet(key)
 
-
+# decrypt password. to remove the b''. then use decode()
 def view():
   with open('passwords.txt', 'r') as file:
      for line in file.readlines():
        data = line.rstrip()
-       user, pwd = data.split('-->>')
-       print(f'User: {user}, Password: {pwd}')
+       user, password = data.split('-->>')
+       print(f'User: {user}, Password: {fernet_key.decrypt(password.encode())}')
 
 
+# encrypt password. make sure it is decoded so it is not store as bytes string i.e b'str'
 def add():
   name = input('What is your account name?: ')
   password = input('What is your password?: ')
 
   with open('passwords.txt', 'a') as file:
-    file.write(name + '-->>' + password + '\n')
+    file.write(name + '-->>' + fernet_key.encrypt(password.encode()).decode() + '\n')
 
 
-# while True:
-# 		mode = input('Do you want to add or view password? Type add/view: \n\nPress q to quit.\nEnter: ')
+while True:
+		mode = input('Do you want to add or view password? Type add/view: \n\nPress q to quit.\nEnter: ')
 
-# 		if mode == 'q':
-# 			break
+		if mode == 'q':
+			break
 
-# 		if mode.lower() == 'add':
-# 			add()
-# 		elif mode == 'view':
-# 			view()
-# 		else:
-# 			print('Invalid')
-# 			continue
+		if mode.lower() == 'add':
+			add()
+		elif mode == 'view':
+			view()
+		else:
+			print('Invalid')
+			continue
